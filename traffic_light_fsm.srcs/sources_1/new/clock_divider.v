@@ -1,0 +1,28 @@
+module clock_divider(
+input clk,
+input rst,
+output reg slow_clk
+);
+
+reg [7:0] count;
+
+always @(posedge clk)
+begin
+    if(rst)
+    begin
+        count <= 0;
+        slow_clk <= 0;
+    end
+    else
+    begin
+        count <= count + 1;
+
+        if(count == 10)
+        begin
+            slow_clk <= ~slow_clk;
+            count <= 0;
+        end
+    end
+end
+
+endmodule
